@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Badge } from '../ui/Badge';
+import { Avatar } from '../ui/Avatar';
 
 export const Navbar: React.FC = () => {
   const { currentUser, effectiveUser, isAdminOrHr, logout, allEmployees, masqueradeAs, masqueradingId } = useAuth();
@@ -209,10 +210,11 @@ export const Navbar: React.FC = () => {
                   onClick={() => setShowUserMenu(!showUserMenu)}
                   className="flex items-center gap-2 p-1.5 pl-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all border border-slate-100 dark:border-slate-700"
                 >
-                  <img
-                    src={effectiveUser.avatar}
-                    alt={effectiveUser.fullName}
-                    className="h-7 w-7 rounded-md object-cover"
+                  <Avatar
+                    name={effectiveUser.fullName}
+                    avatar={effectiveUser.avatar}
+                    size="sm"
+                    rounded="md"
                   />
                   <div className="hidden sm:flex flex-col text-left">
                     <span className="text-xs font-medium text-slate-700 dark:text-slate-200 leading-tight">

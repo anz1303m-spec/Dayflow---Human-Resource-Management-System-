@@ -40,6 +40,15 @@ export const EmployeeProfilePage: React.FC = () => {
     setEditModalOpen(false);
   };
 
+  const handleAvatarChange = (dataUrl: string) => {
+    const update = { avatar: dataUrl };
+    if (isOwnProfile) {
+      updateCurrentUserProfile(update);
+    } else {
+      updateEmployee(employee.id, update);
+    }
+  };
+
   const tabs: TabItem[] = [
     { id: 'personal', label: 'Personal Info', icon: <User className="h-4 w-4" /> },
     { id: 'job', label: 'Job & Organization', icon: <Briefcase className="h-4 w-4" /> },
@@ -69,6 +78,7 @@ export const EmployeeProfilePage: React.FC = () => {
         employee={employee}
         canEdit={canEdit}
         onEditClick={() => setEditModalOpen(true)}
+        onAvatarChange={canEdit ? handleAvatarChange : undefined}
       />
 
       <Tabs
