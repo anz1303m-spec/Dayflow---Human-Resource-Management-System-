@@ -2,7 +2,7 @@ import React from 'react';
 import { User } from '../../types/hrms';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { Edit, Mail, Phone, MapPin, Building, Calendar, ShieldCheck } from 'lucide-react';
+import { Edit, MapPin, Building, Calendar, ShieldCheck } from 'lucide-react';
 import { formatDate } from '../../utils/formatters';
 
 interface ProfileHeaderProps {
@@ -11,71 +11,107 @@ interface ProfileHeaderProps {
   canEdit: boolean;
 }
 
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .slice(0, 2)
+    .join('')
+    .toUpperCase();
+}
+
+// Deterministic background color from name
+const AVATAR_COLORS = [
+  'bg-slate-600',
+  'bg-zinc-600',
+  'bg-stone-600',
+  'bg-neutral-600',
+  'bg-gray-700',
+];
+function getAvatarColor(name: string): string {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash);
+  return AVATAR_COLORS[Math.abs(hash) % AVATAR_COLORS.length];
+}
+
 export const ProfileHeader: React.FC<ProfileHeaderProps> = ({
   employee,
   onEditClick,
   canEdit,
 }) => {
-  return (
-    <div className="relative rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-card overflow-hidden">
-      {/* Top Banner Gradient */}
-      <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-500 opacity-90" />
+  const initials = getInitials(employee.fullName);
+  const avatarBg = getAvatarColor(employee.fullName);
 
-      <div className="relative pt-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        
-        {/* Avatar & Key Info */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-end gap-5">
-          <div className="relative">
-            <img
-              src={employee.avatar}
-              alt={employee.fullName}
-              className="h-28 w-28 rounded-2xl object-cover ring-4 ring-white dark:ring-slate-900 shadow-lg"
-            />
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl p-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+
+        {/* Avatar + Info */}
+        <div className="flex items-center gap-5">
+          {/* Initials avatar — no stock photo */}
+          <div className="relative shrink-0">
+            <div
+              className={`h-16 w-16 rounded-xl ${avatarBg} flex items-center justify-center text-white text-xl font-bold tracking-wide select-none`}
+            >
+              {initials}
+            </div>
             {employee.isEmailVerified && (
-              <div className="absolute -bottom-1 -right-1 p-1 bg-emerald-500 text-white rounded-full shadow" title="Verified Corporate ID">
-                <ShieldCheck className="h-4 w-4" />
+              <div
+                className="absolute -bottom-1 -right-1 p-0.5 bg-emerald-500 text-white rounded-full"
+                title="Verified"
+              >
+                <ShieldCheck className="h-3 w-3" />
               </div>
             )}
           </div>
 
-          <div className="text-center sm:text-left space-y-1">
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-              <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {/* Name, role, meta */}
+          <div className="space-y-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100 tracking-tight">
                 {employee.fullName}
               </h2>
               <Badge status={employee.status} size="sm" />
               <Badge variant="brand" size="sm">{employee.role.toUpperCase()}</Badge>
             </div>
-            
-            <p className="text-sm font-medium text-slate-600 dark:text-slate-300">
-              {employee.designation} &bull; <span className="text-brand-600 dark:text-brand-400">{employee.department}</span>
+
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {employee.designation}
+              {employee.department && (
+                <> &bull; <span className="text-slate-700 dark:text-slate-300">{employee.department}</span></>
+              )}
             </p>
 
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs text-slate-500 dark:text-slate-400 pt-1">
-              <span className="flex items-center gap-1">
-                <Building className="h-3.5 w-3.5" />
-                {employee.employeeId}
-              </span>
-              <span className="flex items-center gap-1">
-                <MapPin className="h-3.5 w-3.5" />
-                {employee.workLocation}
-              </span>
-              <span className="flex items-center gap-1">
-                <Calendar className="h-3.5 w-3.5" />
-                Joined {formatDate(employee.joiningDate)}
-              </span>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-slate-400 pt-0.5">
+              {employee.employeeId && (
+                <span className="flex items-center gap-1">
+                  <Building className="h-3 w-3" />
+                  {employee.employeeId}
+                </span>
+              )}
+              {employee.workLocation && (
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-3 w-3" />
+                  {employee.workLocation}
+                </span>
+              )}
+              {employee.joiningDate && (
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-3 w-3" />
+                  Joined {formatDate(employee.joiningDate)}
+                </span>
+              )}
             </div>
           </div>
         </div>
 
-        {/* Action button */}
+        {/* Edit */}
         {canEdit && (
           <Button
             variant="outline"
             size="sm"
             onClick={onEditClick}
-            leftIcon={<Edit className="h-4 w-4" />}
-            className="self-center sm:self-end"
+            leftIcon={<Edit className="h-3.5 w-3.5" />}
           >
             Edit Profile
           </Button>
