@@ -1,5 +1,5 @@
-export const formatCurrency = (amount: number, currency = 'USD'): string => {
-  return new Intl.NumberFormat('en-US', {
+export const formatCurrency = (amount: number, currency = 'INR'): string => {
+  return new Intl.NumberFormat('en-IN', {
     style: 'currency',
     currency: currency,
     maximumFractionDigits: 0,
@@ -10,7 +10,7 @@ export const formatDate = (dateString: string): string => {
   if (!dateString) return '-';
   const d = new Date(dateString);
   if (isNaN(d.getTime())) return dateString;
-  return new Intl.DateTimeFormat('en-US', {
+  return new Intl.DateTimeFormat('en-IN', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -21,7 +21,7 @@ export const formatTime = (isoOrTime: string | null): string => {
   if (!isoOrTime) return '--:--';
   if (isoOrTime.includes('T')) {
     const d = new Date(isoOrTime);
-    return isNaN(d.getTime()) ? '--:--' : d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+    return isNaN(d.getTime()) ? '--:--' : d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
   }
   return isoOrTime;
 };
@@ -53,17 +53,20 @@ export const getStatusBadgeClass = (status: string): string => {
 };
 
 export const numberToWords = (num: number): string => {
-  if (num === 0) return 'Zero Dollars Only';
-  const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  if (num === 0) return 'Zero Rupees Only';
+  const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+    'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',
+    'Seventeen', 'Eighteen', 'Nineteen'];
   const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-  
+
   const convertNumber = (n: number): string => {
     if (n < 20) return units[n];
     if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + units[n % 10] : '');
     if (n < 1000) return units[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + convertNumber(n % 100) : '');
-    if (n < 1000000) return convertNumber(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertNumber(n % 1000) : '');
-    return convertNumber(Math.floor(n / 1000000)) + ' Million' + (n % 1000000 !== 0 ? ' ' + convertNumber(n % 1000000) : '');
+    if (n < 100000) return convertNumber(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertNumber(n % 1000) : '');
+    if (n < 10000000) return convertNumber(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertNumber(n % 100000) : '');
+    return convertNumber(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertNumber(n % 10000000) : '');
   };
 
-  return convertNumber(Math.round(num)) + ' Dollars Only';
+  return convertNumber(Math.round(num)) + ' Rupees Only';
 };

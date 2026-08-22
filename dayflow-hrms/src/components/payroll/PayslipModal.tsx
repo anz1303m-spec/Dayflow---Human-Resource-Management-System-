@@ -121,7 +121,7 @@ export const PayslipModal: React.FC<PayslipModalProps> = ({
             <div className="border border-slate-200 rounded-lg overflow-hidden">
               <div className="bg-slate-100 px-4 py-2 font-bold text-slate-800 border-b border-slate-200 flex justify-between">
                 <span>EARNINGS</span>
-                <span>AMOUNT ($)</span>
+                <span>AMOUNT (₹)</span>
               </div>
               <div className="divide-y divide-slate-100 p-2 space-y-1">
                 <div className="flex justify-between py-1.5 px-2">
@@ -157,7 +157,7 @@ export const PayslipModal: React.FC<PayslipModalProps> = ({
             <div className="border border-slate-200 rounded-lg overflow-hidden">
               <div className="bg-slate-100 px-4 py-2 font-bold text-slate-800 border-b border-slate-200 flex justify-between">
                 <span>STATUTORY DEDUCTIONS</span>
-                <span>AMOUNT ($)</span>
+                <span>AMOUNT (₹)</span>
               </div>
               <div className="divide-y divide-slate-100 p-2 space-y-1">
                 <div className="flex justify-between py-1.5 px-2">

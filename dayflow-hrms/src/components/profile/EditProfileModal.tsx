@@ -208,7 +208,7 @@ export const EditProfileModal: React.FC<EditProfileModalProps> = ({
               </div>
 
               <Input
-                label="Annual CTC ($)"
+                label="Annual CTC (₹)"
                 type="number"
                 value={ctc}
                 onChange={(e) => setCtc(Number(e.target.value))}

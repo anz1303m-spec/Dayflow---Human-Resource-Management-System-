@@ -333,7 +333,7 @@ export const EmployeesPage: React.FC = () => {
             </div>
             <div>
               <label className="block text-xs font-semibold uppercase text-slate-700 dark:text-slate-300 mb-1.5">
-                Annual CTC ($)
+                Annual CTC (₹)
               </label>
               <input
                 type="number"

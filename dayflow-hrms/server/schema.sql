@@ -159,16 +159,16 @@ INSERT INTO employees (
   pf_employee, pf_employer, professional_tax, income_tax_tds, health_insurance,
   gross_monthly, net_monthly
 ) VALUES (
-  'emp-001', 'DF-1001', 'eleanor.vance@dayflow.corp', 'password123', 'Eleanor Vance', 'admin',
-  'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
-  'Human Resources', 'Head of People & HR Ops', '+1 (555) 234-5678',
-  '450 Mission St, San Francisco, CA',
-  'Board of Directors', 'San Francisco HQ (Hybrid)', 'full_time',
+  'emp-001', 'DF-1001', 'ananya.sharma@dayflow.corp', 'password123', 'Ananya Sharma', 'admin',
+  '',
+  'Human Resources', 'Head of People & HR Ops', '+91 98765 43210',
+  'Flat 402, Shanti Kunj, Sector 56, Gurgaon, Haryana 122011',
+  'Board of Directors', 'Gurgaon HQ (Hybrid)', 'full_time',
   '2021-03-15', '1988-06-22', 'Female', 'O+', 'active', TRUE,
-  'Thomas Vance', 'Spouse', '+1 (555) 987-6543',
-  165000, 7000, 3500, 600, 2150, 500,
-  840, 840, 200, 1800, 150,
-  13750, 10760
+  'Ramesh Sharma', 'Spouse', '+91 98765 43211',
+  1800000, 60000, 30000, 5000, 50000, 5000,
+  7200, 7200, 200, 15000, 2000,
+  150000, 125600
 ) ON CONFLICT (id) DO NOTHING;
 
 -- Seed leave balance for admin
