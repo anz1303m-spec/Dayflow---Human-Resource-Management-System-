@@ -208,7 +208,7 @@ export const PayslipModal: React.FC<PayslipModalProps> = ({
               <p>Dayflow HRMS &sdot; Corporate Finance &sdot; Confidential</p>
             </div>
             <div className="text-center">
-              <div className="h-8 font-serif italic text-slate-700 text-base">Eleanor Vance</div>
+              <div className="h-8 font-serif italic text-slate-700 text-base">Ananya Sharma</div>
               <div className="border-t border-slate-300 pt-1 font-bold text-slate-600">Authorized HR Signatory</div>
             </div>
           </div>

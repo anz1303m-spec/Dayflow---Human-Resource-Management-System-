@@ -11,7 +11,7 @@ export const VerifyEmailPage: React.FC = () => {
   const { verifyOtp } = useAuth();
   const { setIsEmailModalOpen } = useNotifications();
 
-  const email = (location.state as any)?.email || 'marcus.chen@dayflow.corp';
+  const email = (location.state as any)?.email || 'aarav.mehta@dayflow.corp';
   const codeFromState = (location.state as any)?.code || '849201';
 
   const [otpCode, setOtpCode] = useState<string>(codeFromState);

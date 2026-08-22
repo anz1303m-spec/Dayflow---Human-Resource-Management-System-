@@ -25,7 +25,7 @@ const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     id: 'n-1',
     userId: 'emp-001',
     title: 'New Leave Request',
-    message: 'Marcus Chen submitted a request for 4 days of Annual Paid Leave.',
+    message: 'Aarav Mehta submitted a request for 4 days of Annual Paid Leave.',
     type: 'leave',
     read: false,
     createdAt: '2026-08-20T10:30:00Z',

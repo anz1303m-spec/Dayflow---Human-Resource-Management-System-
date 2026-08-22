@@ -386,7 +386,7 @@ export const SignUpPage: React.FC = () => {
 
                 <Input
                   label="Reporting Manager (optional)"
-                  placeholder="e.g. Eleanor Vance"
+                  placeholder="e.g. Ananya Sharma"
                   value={reportingManager}
                   onChange={(e) => setReportingManager(e.target.value)}
                   leftIcon={<Users className="h-4 w-4" />}
